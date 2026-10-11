@@ -1,1 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>MoneyTools India - Free Financial Calculators</title>
+  <meta name="description" content="Free Indian salary, EMI, GST and savings calculators. Calculate your salary, loan payments, GST and financial goals easily.">
+
+  <style>
+    :root {
+      --primary: #155eef;
+      --dark: #172033;
+      --muted: #667085;
+      --background: #f5f7fb;
+      --border: #e5eaf2;
+      --green: #087443;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--dark);
+      background: var(--background);
+      line-height: 1.6;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--dark);
+      font-size: 14px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 55px 20px 35px;
+      background: white;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.2;
+      margin: 0 auto 16px;
+      max-width: 800px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 25px;
+    }
+
+    .search {
+      max-width: 520px;
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px 50px;
+    }
+
+    .section-title {
+      font-size: 25px;
+      margin: 15px 0 18px;
+    }
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 3px 12px rgba(20, 40, 80, 0.035);
+    }
+
+    .card h3 {
+      margin: 8px 0;
+    }
+
+    .icon {
+      font-size: 30px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      background: var(--primary);
+      color: white;
+      padding: 12px 17px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .calculator {
+      margin-top: 32px;
+      scroll-margin-top: 20px;
+    }
+
+    .calculator h2 {
+      margin-top: 0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d0d5dd;
+      border-radius: 8px;
+      font-size: 16px;
+      background: white;
+    }
+
+    .result {
+      background: #eff8ff;
+      border: 1px solid #b2ddff;
+      border-radius: 10px;
+      padding: 18px;
+      margin-top: 20px;
+    }
+
+    .result strong {
+      color: var(--green);
+      font-size: 24px;
+      display: block;
+      overflow-wrap: anywhere;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .empty {
+      display: none;
+      color: var(--muted);
+      padding: 20px;
+    }
+
+    footer {
+      background: white;
+      border-top: 1px solid var(--border);
+      padding: 25px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer a {
+      color: var(--primary);
+      margin: 0 8px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 14px 18px;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      main {
+        padding: 20px 14px 35px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">MoneyTools India</div>
+  <nav>
+    <a href="#tools">All Tools</a>
+    <a href="#salary">Salary</a>
+    <a href="#emi">EMI</a>
+    <a href="#gst">GST</a>
+    <a href="#savings">Savings</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Make Smarter Money Decisions</h1>
+  <p>
+    Simple, free financial calculators designed for India.
+    Calculate your salary, loan payments, GST and savings in seconds.
+  </p>
+
+  <input
+    class="search"
+    id="search"
+    type="search"
+    placeholder="Search calculators..."
+    aria-label="Search financial calculators"
+  >
+</section>
+
+<main>
+
+  <section id="tools">
+    <h2 class="section-title">Explore Our Free Calculators</h2>
+
+    <div class="tools" id="toolGrid">
+
+      <article class="card" data-search="salary income ctc take home">
+        <div class="icon">💰</div>
+        <h3>Salary Calculator</h3>
+        <p>Estimate your monthly take-home pay from your annual CTC.</p>
+        <button onclick="openCalculator('salary')">Calculate Salary</button>
+      </article>
+
+      <article class="card" data-search="emi loan home car personal interest">
+        <div class="icon">🏦</div>
+        <h3>EMI Calculator</h3>
+        <p>Calculate your monthly loan payment and total interest.</p>
+        <button onclick="openCalculator('emi')">Calculate EMI</button>
+      </article>
+
+      <article class="card" data-search="gst tax cgst sgst igst">
+        <div class="icon">🧾</div>
+        <h3>GST Calculator</h3>
+        <p>Calculate GST and the total price of a product or service.</p>
+        <button onclick="openCalculator('gst')">Calculate GST</button>
+      </article>
+
+      <article class="card" data-search="savings money goals investment">
+        <div class="icon">📈</div>
+        <h3>Savings Calculator</h3>
+        <p>Estimate how much you can save over a period of time.</p>
+        <button onclick="openCalculator('savings')">Calculate Savings</button>
+      </article>
+
+    </div>
+
+    <p class="empty" id="empty">No matching calculators found.</p>
+  </section>
+
+  <section class="calculator card" id="salary">
+    <h2>Indian Salary Calculator</h2>
+    <p>Estimate your monthly take-home pay from your annual CTC.</p>
+
+    <div class="form-grid">
+      <div>
+        <label for="ctc">Annual CTC (₹)</label>
+        <input id="ctc" type="number" min="0" max="100000000"
+          value="1000000">
+      </div>
+
+      <div>
+        <label for="monthlyDeductions">Other monthly deductions (₹)</label>
+        <input id="monthlyDeductions" type="number" min="0"
+          max="10000000" value="2000">
+      </div>
+    </div>
+
+    <p class="note">
+      This basic estimate assumes CTC is evenly distributed across 12 months.
+      It does not calculate income tax or account for individual salary structures.
+    </p>
+
+    <button onclick="calculateSalary()">Calculate Salary</button>
+
+    <div class="result" id="salaryResult" aria-live="polite">
+      Estimated monthly amount
+      <strong>₹81,333</strong>
+    </div>
+  </section>
+
+  <section class="calculator card" id="emi">
+    <h2>Loan EMI Calculator</h2>
+    <p>Calculate the monthly payment for a home, car or personal loan.</p>
+
+    <div class="form-grid">
+      <div>
+        <label for="loanAmount">Loan amount (₹)</label>
+        <input id="loanAmount" type="number" min="0"
+          max="100000000000" value="500000">
+      </div>
+
+      <div>
+        <label for="interestRate">Annual interest rate (%)</label>
+        <input id="interestRate" type="number" min="0" max="100"
+          step="0.1" value="10">
+      </div>
+
+      <div>
+        <label for="loanYears">Loan duration (years)</label>
+        <input id="loanYears" type="number" min="0.1" max="100"
+          step="0.1" value="5">
+      </div>
+    </div>
+
+    <br>
+    <button onclick="calculateEMI()">Calculate EMI</button>
+
+    <div class="result" id="emiResult" aria-live="polite">
+      Monthly EMI
+      <strong>₹10,624</strong>
+    </div>
+  </section>
+
+  <section class="calculator card" id="gst">
+    <h2>GST Calculator</h2>
+    <p>Calculate the GST amount for a product or service.</p>
+
+    <div class="form-grid">
+      <div>
+        <label for="price">Price before GST (₹)</label>
+        <input id="price" type="number" min="0" max="100000000000"
+          value="10000">
+      </div>
+
+      <div>
+        <label for="gstRate">GST rate</label>
+        <select id="gstRate">
+          <option value="0">0%</option>
+          <option value="0.05">5%</option>
+          <option value="0.12">12%</option>
+          <option value="0.18" selected>18%</option>
+          <option value="0.28">28%</option>
+        </select>
+      </div>
+    </div>
+
+    <br>
+    <button onclick="calculateGST()">Calculate GST</button>
+
+    <div class="result" id="gstResult" aria-live="polite">
+      Total price including GST
+      <strong>₹11,800</strong>
+    </div>
+  </section>
+
+  <section class="calculator card" id="savings">
+    <h2>Savings Calculator</h2>
+    <p>Estimate your savings without assuming any investment returns.</p>
+
+    <div class="form-grid">
+      <div>
+        <label for="monthlySavings">Monthly savings (₹)</label>
+        <input id="monthlySavings" type="number" min="0"
+          max="1000000000" value="10000">
+      </div>
+
+      <div>
+        <label for="savingYears">Duration (years)</label>
+        <input id="savingYears" type="number" min="0.1" max="100"
+          step="0.1" value="5">
+      </div>
+    </div>
+
+    <br>
+    <button onclick="calculateSavings()">Calculate Savings</button>
+
+    <div class="result" id="savingsResult" aria-live="polite">
+      Total savings
+      <strong>₹6,00,000</strong>
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:32px">
+    <h2>About MoneyTools India</h2>
+    <p>
+      MoneyTools India aims to make everyday financial calculations easier
+      for people across India. Our tools provide estimates to help users
+      understand salary, loans, taxes and savings.
+    </p>
+    <p class="note">
+      Always verify financial and tax calculations against authoritative
+      sources before making financial decisions.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© <span id="year"></span> MoneyTools India</p>
+  <p>Simple tools for smarter financial decisions.</p>
+  <p>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </p>
+  <p>Calculator results are estimates, not financial or tax advice.</p>
+</footer>
+
+<script>
+  "use strict";
+
+  const formatter = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 2
+  });
+
+  function money(value) {
+    return formatter.format(value);
+  }
+
+  function getNumber(id, label, max = 1e12) {
+    const element = document.getElementById(id);
+    const value = element.value.trim() === ""
+      ? NaN
+      : Number(element.value);
+
+    if (!Number.isFinite(value) || value < 0 || value > max) {
+      throw new Error("Enter a valid " + label + ".");
+    }
+
+    return value;
+  }
+
+  function showResult(id, title, lines) {
+    const container = document.getElementById(id);
+    container.replaceChildren();
+
+    const heading = document.createElement("div");
+    heading.textContent = title;
+    container.appendChild(heading);
+
+    lines.forEach(function(line) {
+      const item = document.createElement("p");
+      item.textContent = line;
+      container.appendChild(item);
+    });
+  }
+
+  function calculateSalary() {
+    try {
+      const ctc = getNumber("ctc", "annual CTC", 1e8);
+      const deductions = getNumber(
+        "monthlyDeductions",
+        "monthly deductions",
+        1e7
+      );
+
+      const monthlyCTC = ctc / 12;
+      const takeHome = monthlyCTC - deductions;
+
+      if (takeHome < 0) {
+        throw new Error("Deductions cannot exceed monthly CTC.");
+      }
+
+      showResult("salaryResult", "Estimated monthly amount", [
+        "Monthly CTC: " + money(monthlyCTC),
+        "Other monthly deductions: " + money(deductions),
+        "Estimated amount after entered deductions: " + money(takeHome)
+      ]);
+    } catch (error) {
+      showResult("salaryResult", "Check your inputs", [error.message]);
+    }
+  }
+
+  function calculateEMI() {
+    try {
+      const principal = getNumber("loanAmount", "loan amount");
+      const annualRate = getNumber("interestRate", "interest rate", 100);
+      const years = getNumber("loanYears", "loan duration", 100);
+
+      if (principal <= 0 || years <= 0) {
+        throw new Error("Loan amount and duration must be greater than zero.");
+      }
+
+      const months = Math.round(years * 12);
+
+      if (months < 1) {
+        throw new Error("Loan duration must be at least one month.");
+      }
+
+      const monthlyRate = annualRate / 1200;
+
+      const emi = monthlyRate === 0
+        ? principal / months
+        : principal * monthlyRate *
+          Math.pow(1 + monthlyRate, months) /
+          (Math.pow(1 + monthlyRate, months) - 1);
+
+      const total = emi * months;
+
+      showResult("emiResult", "Estimated monthly EMI", [
+        money(emi),
+        "Total repayment: " + money(total),
+        "Total interest: " + money(total - principal),
+        "Number of monthly payments: " + months
+      ]);
+    } catch (error) {
+      showResult("emiResult", "Check your inputs", [error.message]);
+    }
+  }
+
+  function calculateGST() {
+    try {
+      const price = getNumber("price", "price");
+      const rate = Number(document.getElementById("gstRate").value);
+
+      const gst = price * rate;
+      const total = price + gst;
+
+      showResult("gstResult", "Price including GST", [
+        "Price before GST: " + money(price),
+        "GST amount: " + money(gst),
+        "Total price: " + money(total)
+      ]);
+    } catch (error) {
+      showResult("gstResult", "Check your inputs", [error.message]);
+    }
+  }
+
+  function calculateSavings() {
+    try {
+      const monthly = getNumber("monthlySavings", "monthly savings", 1e9);
+      const years = getNumber("savingYears", "savings duration", 100);
+
+      if (years <= 0) {
+        throw new Error("Duration must be greater than zero.");
+      }
+
+      const months = Math.round(years * 12);
+      const total = monthly * months;
+
+      showResult("savingsResult", "Estimated total savings", [
+        money(total),
+        "Monthly savings: " + money(monthly),
+        "Number of monthly contributions: " + months,
+        "Investment returns are not included."
+      ]);
+    } catch (error) {
+      showResult("savingsResult", "Check your inputs", [error.message]);
+    }
+  }
+
+  function openCalculator(id) {
+    document.getElementById(id).scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  document.getElementById("search").addEventListener("input", function() {
+    const query = this.value.trim().toLowerCase();
+    let visible = 0;
+
+    document.querySelectorAll("#toolGrid .card").forEach(function(card) {
+      const matches = (
+        card.textContent + " " + card.dataset.search
+      ).toLowerCase().includes(query);
+
+      card.style.display = matches ? "" : "none";
+
+      if (matches) visible++;
+    });
+
+    document.getElementById("empty").style.display =
+      visible === 0 ? "block" : "none";
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  calculateSalary();
+  calculateEMI();
+  calculateGST();
+  calculateSavings();
+</script>
+
+</body>
+</html>
